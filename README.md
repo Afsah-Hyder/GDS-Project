@@ -1,5 +1,3 @@
-# GDS-Project
-
 # Graph-Based Machine Learning for Bibliographic Data
 
 This project applies graph-based machine learning techniques to a bibliographic dataset for **node classification** and **link prediction** tasks. The dataset includes information about authors, papers, journals, and topics, which we model as a graph using Neo4j and Python-based frameworks.
