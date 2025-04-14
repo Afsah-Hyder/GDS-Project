@@ -22,7 +22,8 @@ This project applies graph-based machine learning techniques to a bibliographic 
    If you use this dataset or code, cite the original paper:
 
 ## Citation
-If you use this dataset or code, cite the original paper:
+If you use this dataset or code, cite the original paper: 
+
 @article{10.1162/qss_a_00163,
     author = {Rothenberger, Liane and Pasta, Muhammad Qasim and Mayerhoffer, Daniel},
     title = "{Mapping and impact assessment of phenomenon-oriented research fields}",
