@@ -7,7 +7,7 @@ This project applies graph-based machine learning techniques to a bibliographic 
   - **Node Classification**: Predict labels for nodes (e.g., author research domains, paper topics).
   - **Link Prediction**: Predict missing/future links (e.g., collaborations, citations).
 - **Tools**: Neo4j (graph construction), Python (preprocessing, ML models), and libraries like `py2neo`, `scikit-learn`, or `GNN frameworks`.
-- **Dataset**: [Migration Research Bibliographic Data](https://github.com/your-repo-link) from Rothenberger et al. (2021).
+- **Dataset**: [Migration Research Bibliographic Data](https://github.com/habib-university/cs343-project/tree/main) from Rothenberger et al. (2021).
 
 
 ## 🛠️ Setup
