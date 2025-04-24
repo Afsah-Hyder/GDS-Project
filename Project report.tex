@@ -1,0 +1,627 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc}
+\usepackage{float, geometry, graphicx, fancyhdr, color, xcolor}
+\usepackage{amssymb, amsthm, amsmath, tikz, pgfplots, comment, wrapfig}
+\usepackage{listings, mdframed, lipsum, psfrag, parskip, empheq, subfig, verbatim}
+\usepackage[english]{babel}
+\usepackage[breaklinks]{hyperref}
+\usepackage{titlesec, cite, hyperref, wrapfig, booktabs, bookmark, pdfpages, lastpage, subfloat}
+\usepackage{upgreek}
+\usepackage{multirow}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{hyperref} 
+\usepackage[backend=biber, style=ieee]{biblatex}
+\addbibresource{ref.bib}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% C Code Listing Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{mGreen}{rgb}{0.25,0.63,0.15}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{codeBlue}{rgb}{0.01, 0.2, 0.92}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codeblue}{rgb}{0.13,0.29,0.53}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.95}
+
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    backgroundcolor=\color{gray!10},
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    breaklines=true,
+    frame=none,
+    showstringspaces=false
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+\hypersetup{
+    colorlinks = true,
+    linkcolor = black,
+    urlcolor = blue,
+}
+\urlstyle{same}
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{Project Report}
+\fancyhead[C]{Graph Data Science}
+\fancyhead[R]{}
+\fancyfoot{}
+\fancyfoot[C]{\thepage \;of \pageref{LastPage}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+
+\definecolor{codegray}{gray}{0.9}
+\lstdefinestyle{cypherstyle}{
+    backgroundcolor=\color{codegray},
+    language=SQL,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    breaklines=true,
+    frame=single,
+    morekeywords={MATCH, RETURN, WHERE, WITH, COUNT, OPTIONAL, ORDER, BY, LIMIT, AS, IS, NULL}
+}
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{ marvosym }
+\usepackage{wasysym}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usetikzlibrary{patterns}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+\usepackage{matlab-prettifier}
+\lstset{
+    language=Matlab,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{purple},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepsize=1,
+    breaklines=true,
+    xleftmargin=2em,
+    frame=tb,
+    framesep=1em,
+    rulecolor=\color{gray}
+}
+\usepackage{geometry}
+\geometry{
+  a4paper,
+  left=25mm,
+  right=25mm,
+  top=25mm,
+  bottom=25mm,
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    
+    {\Huge \textbf{Graph Data Science}}\\[1.5cm]
+    
+    {\LARGE \textbf{Project Report}}\\[0.3cm]
+    % {\Large DQN and its Variants}\\[2cm]
+    
+    \includegraphics[width=0.5\linewidth]{logo.png}\\[1cm]
+    
+    {\Large \textbf{Instructor:}}\\
+    {\large Dr. Qasim Pasta}\\[1cm]
+    
+    {\large \textbf{Group Members:}}\\[0.5cm]
+    {\large Afsah Hyder - 07065}\\
+    {\large Fakeha Faisal- 08288}\\
+    {\large Eman Fatima - 08595}\\[2cm]
+        
+\end{titlepage}
+
+
+\maketitle
+\section{Data Cleaning}
+The data cleaning process was carried out using the R programming language, with a focus on ensuring consistency, validity, and readiness for integration into a Neo4j graph database. The main steps involved removing duplicate and null entries, verifying data types, and standardizing formats across all datasets.
+
+The \texttt{Journal.csv} file contained two columns: journal name and \texttt{JournalPublisher}. The journal name column was validated to ensure all values were strings. The \texttt{JournalPublisher} column included a mix of publisher names, email addresses, and physical addresses. This was parsed into two distinct columns: one for the publisher house name and another for publisher email. Multiple entries of the same journal name with different publishers were preserved to accurately represent journals published by more than one publishing house.
+
+The \texttt{Author.csv} and \texttt{Topic.csv} files each had three columns: ID, name, and URL. For both files, ID fields were verified as integers, name fields were converted to lowercase for uniformity, and URL values were checked to ensure they began with \texttt{http} or \texttt{https}. Duplicate entries were removed to avoid skewing network metrics such as degree centrality, and rows containing null values were discarded.
+
+The \texttt{Author\_paper.csv} file consisted of two columns: author ID and paper ID. The author ID was validated to ensure it contained only integer values, while the paper ID was checked to conform to the expected format—lowercase strings and numbers. Duplicate author–paper pairs were removed to eliminate redundancy, while maintaining legitimate many-to-one and one-to-many relationships. Any rows with null or incomplete values were also excluded.
+
+
+\section{Graph Construction}
+
+\subsection{Graph Data Model}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\linewidth]{data_model.jpg}
+    \caption{Constructed Model after analyzing data}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsection{Loading the data}
+
+\textbf{Creating Indices for faster loading}
+
+\begin{lstlisting}[style=cypherstyle]
+CREATE CONSTRAINT author_id_unique IF NOT EXISTS FOR (a:Author) REQUIRE a.authorId IS UNIQUE;
+CREATE CONSTRAINT paper_id_unique IF NOT EXISTS FOR (p:Paper) REQUIRE p.paperId IS UNIQUE;
+CREATE CONSTRAINT topic_id_unique IF NOT EXISTS FOR (t:Topic) REQUIRE t.topicId IS UNIQUE;
+CREATE CONSTRAINT journal_unique IF NOT EXISTS FOR (j:Journal) REQUIRE (j.name, j.publisher) IS NODE KEY;
+CREATE CONSTRAINT publisher_name_unique IF NOT EXISTS FOR (p:Publisher) REQUIRE p.name IS UNIQUE;
+
+CREATE INDEX author_name_index IF NOT EXISTS FOR (a:Author) ON (a.name);
+CREATE INDEX paper_title_index IF NOT EXISTS FOR (p:Paper) ON (p.title);
+CREATE INDEX topic_name_index IF NOT EXISTS FOR (t:Topic) ON (t.name);
+CREATE INDEX field_name_index IF NOT EXISTS FOR (f:Field) ON (f.name);
+CREATE INDEX year_value_index IF NOT EXISTS FOR (y:Year) ON (y.value);
+\end{lstlisting}
+
+\textbf{Creating Nodes}
+
+\begin{lstlisting}[style=cypherstyle]
+:auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_author.csv' AS row
+CALL {
+    WITH row
+    MERGE (a:Author {authorId: row.`Author.ID`})
+    SET a.name = row.`Author.Name`,
+        a.url = row.`Author.URL`
+} IN TRANSACTIONS;
+\end{lstlisting}
+
+\begin{lstlisting}[style=cypherstyle]
+:auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_journal.csv' AS row
+CALL {
+    WITH row
+    MERGE (j:Journal {name: row.`Journal.Name`, publisher: row.`Journal.Publisher`,email: row.`Publisher.Email`})
+} IN TRANSACTIONS;
+\end{lstlisting}
+
+\begin{lstlisting}[style=cypherstyle]
+:auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_topic.csv' AS row
+CALL {
+    WITH row
+    MERGE (t:Topic {topicId: row.`Topic.ID`})
+    SET t.name = row.`Topic.Name`,
+        t.url = row.`Topic.URL`
+} IN TRANSACTIONS;
+\end{lstlisting}
+
+\begin{lstlisting}[style=cypherstyle]
+:auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_paper.csv' AS row
+CALL {
+    WITH row
+    MERGE (p:Paper {paperId: row.`Paper ID`})
+    SET p.doi = row.`Paper DOI`,
+        p.title = row.`Paper Title`,
+        p.url = row.`Paper URL`,
+        p.citationCount = toInteger(row.`Paper Citation Count`),
+        p.volume = row.`Journal Volume`,
+        p.date = row.`Journal Date`
+    
+    WITH p, row
+    WHERE row.`Fields of Study` IS NOT NULL
+    MERGE (f:Field {name: row.`Fields of Study`})
+    MERGE (p)-[:HAS_FIELD]->(f)
+    
+    WITH p, row
+    WHERE row.`Paper Year` IS NOT NULL
+    MERGE (y:Year {value: row.`Paper Year`})
+    MERGE (p)-[:WRITTEN_IN]->(y)
+} IN TRANSACTIONS;
+\end{lstlisting}
+
+\textbf{Edge Properties}
+
+\begin{lstlisting}[style=cypherstyle]
+:auto MATCH (j:Journal)-[r:HAS]->(p:Paper)
+WHERE p.date IS NOT NULL OR p.volume IS NOT NULL
+SET r.date = p.date,
+    r.volume = p.volume;
+\end{lstlisting}
+
+Then remove the volume and date properties from the paper node.
+
+\begin{lstlisting}[style=cypherstyle]
+match (p:Paper)
+remove p.volume, p.date;
+\end{lstlisting}
+
+
+
+\textbf{Creating Relationships}
+
+\begin{lstlisting}[style=cypherstyle]
+:auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_author_paper.csv' AS row
+CALL {
+    WITH row
+    MATCH (a:Author {authorId: row.`Author.ID`})
+    MATCH (p:Paper {paperId: row.`Paper.ID`})
+    MERGE (a)-[:WROTE]->(p)
+} IN TRANSACTIONS;
+\end{lstlisting}
+
+\begin{lstlisting}[style=cypherstyle]
+:auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_paper_journal.csv' AS row
+CALL {
+    WITH row
+    MATCH (p:Paper {paperId: row.`Paper ID`})
+    MATCH (j:Journal {name: row.`Journal Name`, publisher: row.`Journal Publisher`})
+    MERGE (j)-[:HAS]->(p)
+} IN TRANSACTIONS;
+\end{lstlisting}
+
+\begin{lstlisting}[style=cypherstyle]
+:auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_paper_topic.csv' AS row
+CALL {
+    WITH row
+    MATCH (p:Paper {paperId: row.`Paper ID`})
+    MATCH (t:Topic {topicId: row.`Topic ID`})
+    MERGE (p)-[:HAS_TOPIC]->(t)
+} IN TRANSACTIONS;
+\end{lstlisting}
+
+\begin{lstlisting}[style=cypherstyle]
+:auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_paper_reference.csv' AS row
+CALL {
+    WITH row
+    MATCH (citing:Paper {paperId: row.`Paper ID`})
+    MATCH (cited:Paper {paperId: row.`Referenced Paper ID`})
+    MERGE (citing)-[:REFERENCES]->(cited)
+} IN TRANSACTIONS;
+\end{lstlisting}
+
+\begin{lstlisting}[style=cypherstyle]
+:auto MATCH (a:Author)-[:WROTE]->(p:Paper)<-[:WROTE]-(b:Author)
+WHERE id(a) < id(b)  
+WITH a, b, count(p) AS collaborationCount
+MERGE (a)-[r:COAUTHOR]->(b)
+SET r.paperCount = collaborationCount;
+\end{lstlisting}
+
+\section{Computing Graph Properties}
+\begin{lstlisting}[style=cypherstyle]
+MATCH (n)
+RETURN labels(n)[0] AS nodeType, count(*) AS count
+ORDER BY count DESC;
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\linewidth]{node_count.png}
+    \caption{Node Count}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{lstlisting}[style=cypherstyle]
+MATCH ()-[r]->()
+RETURN type(r) AS relationshipType, count(*) AS count
+ORDER BY count DESC;
+\end{lstlisting}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\linewidth]{r_count.png}
+    \caption{Relation count}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{lstlisting}[style=cypherstyle]
+MATCH (a:Author)-[:AUTHORED]->(p:Paper)
+WITH a, 
+     count(p) AS paperCount,
+     sum(p.citationCount) AS totalCitations,
+     avg(p.citationCount) AS avgCitationsPerPaper
+RETURN a.name AS author,
+       paperCount,
+       totalCitations,
+       avgCitationsPerPaper
+ORDER BY totalCitations DESC, paperCount DESC
+LIMIT 20;
+\end{lstlisting}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{inf_author.png}
+    \caption{Well-cited authors}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{lstlisting}[style=cypherstyle]
+MATCH (a:Author)-[:AUTHORED]->()<-[:AUTHORED]-(coauthor:Author)
+WHERE a <> coauthor
+RETURN a.name AS author, count(DISTINCT coauthor) AS collaboratorCount
+ORDER BY collaboratorCount DESC
+LIMIT 20;
+\end{lstlisting}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\linewidth]{c_count.png}
+    \caption{Collaborator count}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{lstlisting}[style=cypherstyle]
+MATCH (p:Paper)
+where p.citationCount is not null
+RETURN p.title AS paper, p.citationCount AS citations
+ORDER BY citations DESC
+LIMIT 20;
+\end{lstlisting}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\linewidth]{cit_p.png}
+    \caption{Most cited papers}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\linewidth]{most_cited.png}
+    \label{fig:enter-label}
+\end{figure}
+
+
+\begin{lstlisting}[style=cypherstyle]
+CALL gds.graph.project(
+  'paperTopicNetwork',
+  ['Paper', 'Topic'],
+  {
+    HAS_TOPIC: {orientation: 'UNDIRECTED'},
+    CITES: {orientation: 'NATURAL'}
+  }
+);
+
+CALL gds.louvain.stream('paperTopicNetwork')
+YIELD nodeId, communityId
+WITH gds.util.asNode(nodeId) AS node, communityId
+WHERE labels(node) = ['Paper']
+RETURN communityId, count(*) AS paperCount
+ORDER BY paperCount DESC
+LIMIT 10;
+\end{lstlisting}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\linewidth]{topc.png}
+    \caption{Community Detection (Topic Clustering)}
+    \label{fig:enter-label}
+\end{figure}
+
+\subsection{Degree Centrality (popular topics)}
+\begin{lstlisting}[style=cypherstyle]
+MATCH (p:Paper)-[:HAS_TOPIC]->(t:Topic) 
+RETURN t.name AS Topic, count(p) AS PaperCount 
+ORDER BY PaperCount DESC 
+LIMIT 3; 
+\end{lstlisting}
+
+\subsection{PageRank centrality: Influential topics based on their connections to important papers}
+\begin{lstlisting}[style=cypherstyle]
+CALL gds.graph.project( 
+  'topicGraph', 
+  ['Paper', 'Topic'], 
+  { 
+    HAS_TOPIC: { 
+      orientation: 'UNDIRECTED' 
+    } 
+  } 
+); 
+CALL gds.pageRank.stream('topicGraph') 
+YIELD nodeId, score 
+WITH gds.util.asNode(nodeId) AS n, score 
+WHERE n:Topic 
+RETURN n.name AS Topic, score 
+ORDER BY score DESC 
+LIMIT 3;  
+\end{lstlisting}
+
+\subsection{Topic pairs most often studied together}
+\begin{lstlisting}[style=cypherstyle]
+MATCH (t1:Topic)<-[:HAS_TOPIC]-(p:Paper)-[:HAS_TOPIC]->(t2:Topic) 
+WHERE id(t1) < id(t2) 
+RETURN t1.name AS Topic1, t2.name AS Topic2, count(*) AS CoOccurrence 
+ORDER BY CoOccurrence DESC 
+LIMIT 10;   
+\end{lstlisting}
+
+\subsection{Topic Popularity Over Time (yearly trend)}
+\begin{lstlisting}[style=cypherstyle]
+MATCH (p:Paper)-[:HAS_TOPIC]->(t:Topic) 
+MATCH (p)-[:WRITTEN_IN]->(y:Year) 
+RETURN y.value AS Year, t.name AS Topic, count(*) AS PaperCount 
+ORDER BY Year ASC;  
+\end{lstlisting}
+
+\subsection{Most publishing journals}
+\begin{lstlisting}[style=cypherstyle]
+MATCH (j:Journal)-[:HAS]->(p:Paper) 
+RETURN j.name, COUNT(p) AS paperCount 
+ORDER BY paperCount DESC 
+LIMIT 3   
+\end{lstlisting}
+
+\subsection{Most cited journals}
+\begin{lstlisting}[style=cypherstyle]
+MATCH (j:Journal)-[:HAS]->(p:Paper) 
+RETURN j.name, SUM(p.citationCount) AS totalCitations 
+ORDER BY totalCitations DESC 
+LIMIT 3   
+\end{lstlisting}
+
+\subsection{Fields vs topics cross-analysis: How many unique topics per field}
+\begin{lstlisting}[style=cypherstyle]
+MATCH (p:Paper)-[:HAS_FIELD]->(f:Field), (p)-[:HAS_TOPIC]->(t:Topic) 
+RETURN f.name, COUNT(DISTINCT t) AS uniqueTopics 
+ORDER BY uniqueTopics DESC  
+\end{lstlisting}
+
+\subsection{Authors with high betweenness centrality (connecting different fields)}
+\begin{lstlisting}[style=cypherstyle]
+CALL gds.graph.project.cypher( 
+  'authorFieldGraph', 
+  ' 
+  MATCH (a:Author) RETURN id(a) AS id, labels(a) AS labels 
+  UNION 
+  MATCH (f:Field) RETURN id(f) AS id, labels(f) AS labels 
+  ', 
+  ' 
+  MATCH (a:Author)-[:WROTE]->(:Paper)-[:HAS_FIELD]->(f:Field) 
+  RETURN id(a) AS source, id(f) AS target 
+  ', 
+  { validateRelationships: false } 
+); 
+CALL gds.betweenness.stream('authorFieldGraph') 
+YIELD nodeId, score 
+WITH gds.util.asNode(nodeId) AS node, score 
+WHERE 'Author' IN labels(node) 
+RETURN node.name AS author, score 
+ORDER BY score DESC 
+LIMIT 3  
+\end{lstlisting}
+Result for all = 0.0. Meaning all authors only limited to their own fields, no diversity?
+
+
+\section{Node Classification}
+\begin{lstlisting}
+MATCH (a:Author)-[:AUTHORED]->(p:Paper)-[:HAS_TOPIC]->(t:Topic)
+WITH a, 
+     collect(DISTINCT t.name) AS topics,
+     count(p) AS paperCount,
+     avg(p.citationCount) AS avgCitations,
+     sum(p.citationCount) AS totalCitations
+SET a.topics = topics,
+    a.paperCount = paperCount,
+    a.avgCitations = avgCitations,
+    a.totalCitations = totalCitations;
+\end{lstlisting}
+
+\begin{lstlisting}
+// Add co-authorship network features
+MATCH (a:Author)-[:AUTHORED]->()<-[:AUTHORED]-(coauthor:Author)
+WITH a, count(DISTINCT coauthor) AS collaboratorCount
+SET a.collaboratorCount = collaboratorCount;
+\end{lstlisting}
+
+\begin{lstlisting}
+MATCH (a:Author)-[:AUTHORED]->(p:Paper)-[:HAS_TOPIC]->(t:Topic)
+WITH a, count(DISTINCT t) AS uniqueTopics, count(p) AS totalPapers
+SET a.diversityScore =  uniqueTopics / totalPapers;
+\end{lstlisting}
+
+
+\section{Link Prediction}
+\textbf{Objective:} Predict potential citation links between papers based on their relationships in the graph (e.g., co-citation, shared authors, or topics). Have to find out that given a pair of papers (nodes), predict whether one is likely to cite the other.
+
+\textbf{Create Projection:}
+\begin{lstlisting}
+CALL gds.graph.project(
+    'citation_graph',
+    {
+        Paper: {
+            properties: ['citationCount']
+        }
+    },
+    'REFERENCES'
+)
+YIELD graphName, nodeCount, relationshipCount
+RETURN graphName, nodeCount, relationshipCount;
+\end{lstlisting}
+
+\textbf{Positive and Negative Samples:}
+\begin{lstlisting}
+// Positive samples
+:auto MATCH (p1:Paper)-[:REFERENCES]->(p2:Paper)
+CALL {
+    WITH p1, p2
+    MERGE (p1)-[r:TRAINING_LINK {label: 1}]->(p2)
+} IN TRANSACTIONS OF 1000 ROWS;
+
+// Negative samples
+:auto MATCH (p1:Paper)-[:HAS_FIELD]->(f:Field)<-[:HAS_FIELD]-(p2:Paper)
+WHERE NOT (p1)-[:REFERENCES]->(p2) AND p1 <> p2
+WITH p1, p2
+LIMIT 10000
+CALL {
+    WITH p1, p2
+    MERGE (p1)-[r:TRAINING_LINK {label: 0}]->(p2)
+} IN TRANSACTIONS OF 1000 ROWS;
+
+// Graph projection
+CALL gds.graph.project(
+    'citation_graph',
+    {
+        Paper: {
+            properties: ['citationCount']
+        }
+    },
+    'REFERENCES'
+);
+\end{lstlisting}
+
+\textbf{Future work to do:}
+\begin{itemize}
+    \item Calculate graph-based features such as:
+    \begin{itemize}
+        \item Adamic-Adar Index
+        \item Common Neighbors
+        \item Preferential Attachment
+    \end{itemize}
+    \item Features engineering by adding properties to nodes.
+    \item Set up a link prediction pipeline.    
+    \item Divide the dataset into training and testing sets based on the year.
+    \item Evaluate and train the model using the prepared data splits.
+\end{itemize}
+
+
+
+\end{document}
