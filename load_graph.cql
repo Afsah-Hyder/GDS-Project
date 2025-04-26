@@ -73,6 +73,9 @@ MATCH (p:Publisher {name: j.publisher})
 MERGE (j)-[:PUBLISHED_BY]->(p)
 REMOVE j.publisher, j.email;
 
+Match (j:Journal)
+REMOVE j.publisher, j.email;
+
 // Edge Properties
 :auto MATCH (j:Journal)-[r:HAS]->(p:Paper)
 WHERE p.date IS NOT NULL OR p.volume IS NOT NULL
