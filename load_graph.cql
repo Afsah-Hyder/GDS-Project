@@ -56,6 +56,23 @@ CALL {
     MERGE (p)-[:WRITTEN_IN]->(y)
 } IN TRANSACTIONS;
 
+:auto MATCH (j:Journal)
+WHERE j.publisher IS NOT NULL AND j.publisher <> "NA"
+WITH DISTINCT j.publisher AS publisherName, j.email AS publisherEmail
+CALL {
+    WITH publisherName, publisherEmail
+    MERGE (p:Publisher {name: publisherName})
+    SET p.email = CASE WHEN publisherEmail IS NOT NULL AND publisherEmail <> "NA" THEN publisherEmail ELSE null END
+} IN TRANSACTIONS;
+
+//remove the journal constraint now
+
+:auto MATCH (j:Journal)
+WHERE j.publisher IS NOT NULL
+MATCH (p:Publisher {name: j.publisher})
+MERGE (j)-[:PUBLISHED_BY]->(p)
+REMOVE j.publisher, j.email;
+
 // Edge Properties
 :auto MATCH (j:Journal)-[r:HAS]->(p:Paper)
 WHERE p.date IS NOT NULL OR p.volume IS NOT NULL
