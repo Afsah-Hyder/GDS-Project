@@ -127,8 +127,63 @@ clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 print(classification_report(y_test, y_pred))
 
+-----------------------------------------------------------------------------------------------------------------------------------------------
 
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
 
+# Train-test split (after resampling)
+X_train, X_test, y_train, y_test = train_test_split(
+    X_resampled, y_resampled, stratify=y_resampled, test_size=0.2, random_state=42
+)
+
+# Train Logistic Regression
+log_reg = LogisticRegression(
+    multi_class="multinomial",  # for softmax behavior
+    solver="lbfgs",             # efficient for multinomial
+    max_iter=1000,
+    class_weight="balanced"     # helps with any residual imbalance
+)
+log_reg.fit(X_train, y_train)
+
+# Evaluate
+y_pred = log_reg.predict(X_test)
+print(classification_report(y_test, y_pred))
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+from xgboost import XGBClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import classification_report
+
+# Encode string labels to integers
+le = LabelEncoder()
+y_encoded = le.fit_transform(y_resampled)
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(
+    X_resampled, y_encoded, stratify=y_encoded, test_size=0.2, random_state=42
+)
+
+# Train XGBoost
+xgb_clf = XGBClassifier(
+    objective="multi:softmax",
+    num_class=len(le.classes_),
+    eval_metric="mlogloss",
+    use_label_encoder=False,
+    random_state=42,
+    n_jobs=-1
+)
+xgb_clf.fit(X_train, y_train)
+
+# Predict and decode labels back to original strings
+y_pred_encoded = xgb_clf.predict(X_test)
+y_pred = le.inverse_transform(y_pred_encoded)
+y_test_str = le.inverse_transform(y_test)
+
+# Evaluate
+print(classification_report(y_test_str, y_pred))
 
 
 
