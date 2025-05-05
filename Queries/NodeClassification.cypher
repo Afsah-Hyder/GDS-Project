@@ -91,9 +91,12 @@ clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 print(classification_report(y_test, y_pred))
 
-
-
-
+Key Observations:
+High accuracy (80%) is mostly driven by dominant classes like "Sociology" and "Medicine" which have a lot of support (samples).
+Low precision/recall for many small classes like "Engineering", "Philosophy", or "Art" is due to:
+Too few examples to learn meaningful patterns.
+Random Forests favoring frequent classes unless balanced.
+Warnings are due to no predictions being made for some classes — e.g., the model never predicted "Engineering", so precision is undefined.
 
 
 
