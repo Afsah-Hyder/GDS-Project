@@ -2,7 +2,7 @@
 CREATE CONSTRAINT author_id_unique IF NOT EXISTS FOR (a:Author) REQUIRE a.authorId IS UNIQUE;
 CREATE CONSTRAINT paper_id_unique IF NOT EXISTS FOR (p:Paper) REQUIRE p.paperId IS UNIQUE;
 CREATE CONSTRAINT topic_id_unique IF NOT EXISTS FOR (t:Topic) REQUIRE t.topicId IS UNIQUE;
-CREATE CONSTRAINT journal_unique IF NOT EXISTS FOR (j:Journal) REQUIRE (j.name, j.publisher) IS NODE KEY;
+CREATE CONSTRAINT journal_unique IF NOT EXISTS FOR (j:Journal) REQUIRE (j.name) IS NODE KEY;
 CREATE CONSTRAINT publisher_name_unique IF NOT EXISTS FOR (p:Publisher) REQUIRE p.name IS UNIQUE;
 
 CREATE INDEX author_name_index IF NOT EXISTS FOR (a:Author) ON (a.name);
