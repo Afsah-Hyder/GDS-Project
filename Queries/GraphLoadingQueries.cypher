@@ -1,9 +1,9 @@
---This script is designed to load and transform data from CSV files into a Neo4j graph database.
--- It creates nodes and relationships for authors, papers, journals, topics, fields, years, and publishers.
--- The script also includes constraints and indexes to ensure data integrity and improve query performance.
+\\This script is designed to load and transform data from CSV files into a Neo4j graph database.
+\\ It creates nodes and relationships for authors, papers, journals, topics, fields, years, and publishers.
+\\ The script also includes constraints and indexes to ensure data integrity and improve query performance.
 
--- LODAING DATA INTO NEO4J GRAPH DATABASE
--- Defines constraints and indexes to ensure data integrity and improve query performance
+\\ LODAING DATA INTO NEO4J GRAPH DATABASE
+\\ Defines constraints and indexes to ensure data integrity and improve query performance
 CREATE CONSTRAINT author_id_unique IF NOT EXISTS FOR (a:Author) REQUIRE a.authorId IS UNIQUE;
 CREATE CONSTRAINT paper_id_unique IF NOT EXISTS FOR (p:Paper) REQUIRE p.paperId IS UNIQUE;
 CREATE CONSTRAINT topic_id_unique IF NOT EXISTS FOR (t:Topic) REQUIRE t.topicId IS UNIQUE;
@@ -16,7 +16,7 @@ CREATE INDEX topic_name_index IF NOT EXISTS FOR (t:Topic) ON (t.name);
 CREATE INDEX field_name_index IF NOT EXISTS FOR (f:Field) ON (f.name);
 CREATE INDEX year_value_index IF NOT EXISTS FOR (y:Year) ON (y.value);
 
--- Loads authors from CSV and creates or updates Author nodes with ID, name, and URL in batches for efficient import
+\\ Loads authors from CSV and creates or updates Author nodes with ID, name, and URL in batches for efficient import
 :auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_author.csv' AS row
 CALL {
     WITH row
@@ -25,7 +25,7 @@ CALL {
         a.url = row.`Author.URL`
 } IN TRANSACTIONS;
 
--- Loads journal data from CSV and merges Journal nodes using name, publisher, and email as identifiers in transactional batches
+\\ Loads journal data from CSV and merges Journal nodes using name, publisher, and email as identifiers in transactional batches
 :auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_journal.csv' AS row
 CALL {
     WITH row
@@ -37,7 +37,7 @@ CALL {
 } IN TRANSACTIONS;
 
 
--- Loads topic data from CSV and creates or updates Topic nodes with ID, name, and URL in transactional batches
+\\ Loads topic data from CSV and creates or updates Topic nodes with ID, name, and URL in transactional batches
 :auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_topic.csv' AS row
 CALL {
     WITH row
@@ -46,7 +46,7 @@ CALL {
         t.url = row.`Topic.URL`
 } IN TRANSACTIONS;
 
--- Loads paper data from CSV, creates or updates Paper nodes with metadata, and links them to Field and Year nodes in transactional batches
+\\ Loads paper data from CSV, creates or updates Paper nodes with metadata, and links them to Field and Year nodes in transactional batches
 :auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_paper.csv' AS row
 CALL {
     WITH row
@@ -69,7 +69,7 @@ CALL {
     MERGE (p)-[:WRITTEN_IN]->(y)
 } IN TRANSACTIONS;
 
--- Extracts unique publishers from Journal nodes and creates or updates corresponding Publisher nodes with email if valid, in transactional batches
+\\ Extracts unique publishers from Journal nodes and creates or updates corresponding Publisher nodes with email if valid, in transactional batches
 :auto MATCH (j:Journal)
 WHERE j.publisher IS NOT NULL AND j.publisher <> "NA"
 WITH DISTINCT j.publisher AS publisherName, j.email AS publisherEmail
@@ -79,29 +79,29 @@ CALL {
     SET p.email = CASE WHEN publisherEmail IS NOT NULL AND publisherEmail <> "NA" THEN publisherEmail ELSE null END
 } IN TRANSACTIONS;
 
--- Links each Journal to its corresponding Publisher node and removes embedded publisher and email properties from the Journal node
+\\ Links each Journal to its corresponding Publisher node and removes embedded publisher and email properties from the Journal node
 :auto MATCH (j:Journal)
 WHERE j.publisher IS NOT NULL
 MATCH (p:Publisher {name: j.publisher})
 MERGE (j)-[:PUBLISHED_BY]->(p)
 REMOVE j.publisher, j.email;
 
--- Removes the 'publisher' and 'email' properties from 'Journal' nodes after linking to 'Publisher' nodes
+\\ Removes the 'publisher' and 'email' properties from 'Journal' nodes after linking to 'Publisher' nodes
 MATCH (j:Journal)
 REMOVE j.publisher, j.email;
 
--- Updates the 'HAS' relationship between 'Journal' and 'Paper' nodes with the 'date' and 'volume' properties from the related 'Paper' nodes, where these properties are not null.
+\\ Updates the 'HAS' relationship between 'Journal' and 'Paper' nodes with the 'date' and 'volume' properties from the related 'Paper' nodes, where these properties are not null.
 :auto MATCH (j:Journal)-[r:HAS]->(p:Paper)
 WHERE p.date IS NOT NULL OR p.volume IS NOT NULL
 SET r.date = p.date,
     r.volume = p.volume;
 
--- Removes the 'volume' and 'date' properties from all 'Paper' nodes.
+\\ Removes the 'volume' and 'date' properties from all 'Paper' nodes.
 match (p:Paper)
 remove p.volume, p.date;
 
--- CREATING RELATIONSHIPS BETWEEN NODES
--- Loads author-paper relationships from CSV and creates 'WROTE' relationships between Author and Paper nodes.
+\\ CREATING RELATIONSHIPS BETWEEN NODES
+\\ Loads author-paper relationships from CSV and creates 'WROTE' relationships between Author and Paper nodes.
 :auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_author_paper.csv' AS row
 CALL {
     WITH row
@@ -110,7 +110,7 @@ CALL {
     MERGE (a)-[:WROTE]->(p)
 } IN TRANSACTIONS;
 
--- Loads paper-journal relationships from CSV and creates 'HAS' relationships between Paper and Journal nodes.
+\\ Loads paper-journal relationships from CSV and creates 'HAS' relationships between Paper and Journal nodes.
 :auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_paper_journal.csv' AS row
 CALL {
     WITH row
@@ -119,7 +119,7 @@ CALL {
     MERGE (j)-[:HAS]->(p)
 } IN TRANSACTIONS;
 
--- Loads paper-topic relationships from CSV and creates 'HAS_TOPIC' relationships between Paper and Topic nodes.
+\\ Loads paper-topic relationships from CSV and creates 'HAS_TOPIC' relationships between Paper and Topic nodes.
 :auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_paper_topic.csv' AS row
 CALL {
     WITH row
@@ -128,7 +128,7 @@ CALL {
     MERGE (p)-[:HAS_TOPIC]->(t)
 } IN TRANSACTIONS;
 
--- Loads paper reference relationships from CSV and creates 'REFERENCES' relationships between citing and cited Paper nodes.
+\\ Loads paper reference relationships from CSV and creates 'REFERENCES' relationships between citing and cited Paper nodes.
 :auto LOAD CSV WITH HEADERS FROM 'file:///cleaned_paper_reference.csv' AS row
 CALL {
     WITH row
@@ -137,12 +137,12 @@ CALL {
     MERGE (citing)-[:REFERENCES]->(cited)
 } IN TRANSACTIONS;
 
--- Matches Author nodes that co-authored papers, counts the number of collaborations, and creates 'COAUTHOR' relationships between authors with the paper count as a property.
+\\ Matches Author nodes that co-authored papers, counts the number of collaborations, and creates 'COAUTHOR' relationships between authors with the paper count as a property.
 :auto MATCH (a:Author)-[:WROTE]->(p:Paper)<-[:WROTE]-(b:Author)
 WHERE id(a) < id(b)  
 WITH a, b, count(p) AS collaborationCount
 MERGE (a)-[r:COAUTHOR]->(b)
 SET r.paperCount = collaborationCount;
 
--- This command will visualize the schema of the database, showing the nodes and relationships created.
+\\ This command will visualize the schema of the database, showing the nodes and relationships created.
 CALL db.schema.visualization() 
