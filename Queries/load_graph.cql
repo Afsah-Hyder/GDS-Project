@@ -47,7 +47,9 @@ CALL {
     
     WITH p, row
     WHERE row.`Fields of Study` IS NOT NULL
-    MERGE (f:Field {name: row.`Fields of Study`})
+    WITH p, split(row.`Fields of Study`, '; ') AS fields, row
+    UNWIND fields AS field
+    MERGE (f:Field {name: trim(field)})
     MERGE (p)-[:HAS_FIELD]->(f)
     
     WITH p, row
