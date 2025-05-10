@@ -20,12 +20,12 @@ CALL gds.graph.drop('TempProjection');
 step 2:
 // Label training papers
 MATCH (p:Paper)-[:WRITTEN_IN]->(y:Year)
-WHERE y.value IS NOT NULL AND y.value <> 'NA' AND toInteger(y.value) >= 2016 AND toInteger(y.value) <= 2018
+WHERE y.value IS NOT NULL AND y.value <> 'NA' AND toInteger(y.value) >= 2014 AND toInteger(y.value) <= 2017
 SET p:TrainPaper;
 
 // Label test papers
 MATCH (p:Paper)-[:WRITTEN_IN]->(y:Year)
-WHERE y.value IS NOT NULL AND y.value <> 'NA' AND toInteger(y.value) > 2018
+WHERE y.value IS NOT NULL AND y.value <> 'NA' AND toInteger(y.value) > 2017
 SET p:TestPaper;
 
 step 3:
@@ -90,14 +90,8 @@ CALL gds.beta.pipeline.linkPrediction.addFeature('citationPipeline', 'cosine', {
   edgeProperties: ['citationCount']  // Using citationCount as edge property for Cosine similarity calculation
 }) YIELD featureSteps;
 
-step 8:
-CALL gds.beta.pipeline.linkPrediction.configureSplit('citationPipeline', {
-  testFraction: 0.25,  // 25% for testing
-  trainFraction: 0.6,  // 60% for training
-  validationFolds: 3   // Optional cross-validation
-}) YIELD splitConfig;
 
-step 9:
+step 8:
 // Logistic Regression Model
 CALL gds.beta.pipeline.linkPrediction.addLogisticRegression('citationPipeline');
 
@@ -105,12 +99,12 @@ CALL gds.beta.pipeline.linkPrediction.addLogisticRegression('citationPipeline');
 CALL gds.beta.pipeline.linkPrediction.addRandomForest('citationPipeline', {numberOfDecisionTrees: 50});  // Adjust tree count
 
 
-step 10:
+step 9:
 CALL gds.alpha.pipeline.linkPrediction.configureAutoTuning('citationPipeline', {
   maxTrials: 20  // Max number of hyperparameter tuning trials
 }) YIELD autoTuningConfig;
 
-step 11:
+step 10:
 CALL gds.beta.pipeline.linkPrediction.train('CitationProjection', {
   pipeline: 'citationPipeline',  // Your pipeline name
   modelName: 'lp-pipeline-model',  // Model name
@@ -118,38 +112,3 @@ CALL gds.beta.pipeline.linkPrediction.train('CitationProjection', {
   targetRelationshipType: 'REFERENCES',  // The target relationship type
   randomSeed: 18  // Set random seed for reproducibility
 }) YIELD modelInfo, modelSelectionStats;
-
-
-step 12:
-MATCH (p:Paper)-[:WRITTEN_IN]->(y:Year)
-WHERE y.value IS NOT NULL AND y.value <> 'NA' AND toInteger(y.value) > 2018 AND toInteger(y.value) <= 2020
-SET p:Post2018Paper;
-
-step 13: CALL gds.graph.project(
-  'Post2018CitationProjection',
-  ['Post2018Paper'],
-  {
-    REFERENCES: {
-      orientation: 'UNDIRECTED',
-      properties: ['split']
-    }
-  },
-  {
-    nodeProperties: ['community']
-  }
-);
-
-step 14:
-CALL gds.graph.project(
-  'Post2018CitationProjection',
-  ['Post2018Paper'],
-  {
-    REFERENCES: {
-      orientation: 'UNDIRECTED',
-      properties: ['split']
-    }
-  },
-  {
-    nodeProperties: ['community']
-  }
-);
