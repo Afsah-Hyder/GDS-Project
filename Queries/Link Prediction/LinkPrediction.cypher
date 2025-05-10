@@ -1,3 +1,5 @@
+//1ST ITERATION
+
 // Step 1. Creating Graph Projection
 CALL gds.graph.project(
   'NewCitationProjection',  // Name of the projection
@@ -89,6 +91,7 @@ RETURN
 // Step 10. Memory Estimation required for Prediction - Optional: skipping for now
 
 
+
 // Step 11. Prediction (With write command)
 CALL gds.beta.pipeline.linkPrediction.predict.stream('NewCitationProjection', {
   modelName: 'lp-pipeline-model',
@@ -100,5 +103,3 @@ YIELD node1, node2, probability
 WITH gds.util.asNode(node1) AS n1, gds.util.asNode(node2) AS n2, probability
 RETURN n1.title AS paper1, n2.title AS paper2, probability
 ORDER BY probability DESC, paper1
-
-
