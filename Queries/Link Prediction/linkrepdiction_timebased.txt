@@ -36,13 +36,13 @@ REMOVE r.split;
 // Step 2: Set training split (2016–2018)
 MATCH (p1:Paper)-[:WRITTEN_IN]->(y:Year), 
       (p1)-[r:REFERENCES]->(p2:Paper)
-WHERE y.value >= 2016 AND y.value <= 2018
+WHERE y.value >= 2014 AND y.value <= 2017
 SET r.split = 0.0;
 
 // Step 3: Set test split (post-2018)
 MATCH (p1:Paper)-[:WRITTEN_IN]->(y:Year), 
       (p1)-[r:REFERENCES]->(p2:Paper)
-WHERE y.value > 2018
+WHERE y.value > 2017
 SET r.split = 1.0;
 
 step 4:
