@@ -134,7 +134,8 @@ CALL {
     WITH row
     MATCH (citing:Paper {paperId: row.`Paper ID`})
     MATCH (cited:Paper {paperId: row.`Referenced Paper ID`})
-    MERGE (citing)-[:REFERENCES]->(cited)
+    MERGE (citing)-[r:REFERENCES]->(cited)
+    SET r.citationCount = toInteger(row.`Citation Count`)  // Setting citationCount as a relationship property
 } IN TRANSACTIONS;
 
 \\ Matches Author nodes that co-authored papers, counts the number of collaborations, and creates 'COAUTHOR' relationships between authors with the paper count as a property.
